@@ -1,0 +1,140 @@
+command /wardrobe:
+  trigger:
+    set {_inventory} to chest inventory with 6 rows named "&6Wardrobe"
+    set slot integers from 0 to 56 of {_inventory} to light green glass pane named "&r"
+    set slot 10, 12, 14 and 16 of {_inventory} to air
+    set slot 19, 21, 23 and 25 of {_inventory} to air
+    set slot 28, 30, 32 and 34 of {_inventory} to air
+    set slot 37, 39, 41 and 43 of {_inventory} to air
+    set slot 46, 48, 50 and 52 of {_inventory} to blue dye named "&6Reset"
+    set slot 8 of {_inventory} to red dye named "&5Credits" with lore "&cCredit to &6PioMine &cFor creating this. %nl%&cCredit to ""&6Poa&c"" &cFor helping making this. %nl%&cCredit to ""&6Expqnded&c"" &cFor helping making this."
+    set slot 0 of {_inventory} to light blue dye named "&9Discord" with lore "&9 Join our &dDiscord"
+    loop 6*9 times:
+      set slot loop-number - 1 of {_inventory} to {wardrobe::%player's uuid%::%loop-number - 1%} 
+    open {_inventory} to player
+
+on inventory close:
+    name of event-inventory contains "&6Wardrobe"
+    loop 6*9 times:
+        set {wardrobe::%player's uuid%::%loop-number - 1%} to slot loop-number - 1 of event-inventory
+
+on inventory click:
+    name of event-inventory contains "&6Wardrobe":
+   
+        if click type is left mouse button:
+            set {_item} to event-slot
+            if event-itemtype is any boots:
+                if event-inventory is not player's inventory:
+                    set {clicks::%uuid of player%} to 1
+                    set slot 36 of player's inventory to {_item}
+                    cancel event
+
+on inventory click:
+    name of event-inventory contains "&6Wardrobe":
+    
+        if click type is left mouse button:
+            set {_item} to event-slot
+            if event-itemtype is any chestplate:
+                if event-inventory is not player's inventory:
+                    set {clicks::%uuid of player%} to 1
+                    set slot 38 of player's inventory to {_item}
+                    cancel event
+
+on inventory click:
+    name of event-inventory contains "&6Wardrobe":
+
+        if click type is left mouse button:
+            set {_item} to event-slot
+            if event-itemtype is any leggings:
+                if event-inventory is not player's inventory:
+                    set {clicks::%uuid of player%} to 1
+                    set slot 37 of player's inventory to {_item}
+                    cancel event
+
+on inventory click:
+    name of event-inventory contains "&6Wardrobe":
+        if click type is left mouse button:
+            set {_item} to event-slot
+            if event-itemtype is any helmet:
+                if event-inventory is not player's inventory:
+                    set {clicks::%uuid of player%} to 1
+                    set slot 39 of player's inventory to {_item}
+                    cancel event
+
+on inventory click:
+    name of event-inventory contains "&6Wardrobe":
+        if click type is left mouse button:
+            set {_item} to event-slot
+            if event-itemtype is elytra:
+                if event-inventory is not player's inventory:
+                    set {clicks::%uuid of player%} to 1
+                    set slot 38 of player's inventory to {_item}
+                    cancel event
+        if click type is right mouse button:
+            if {clicks::%uuid of player%} is greater than 0:
+                cancel event
+        
+on inventory click:
+    if {clicks::%uuid of player%} is greater than 0:
+        event-inventory is player's inventory:
+            if clicked slot is 38, 39, 37 or 36:
+                cancel event
+                
+command /wardhelp:
+    trigger:
+        execute player command "/t PioMine yo, how do i use the wardrobe?"
+
+                
+                
+on inventory click:
+    name of event-inventory contains "&6Wardrobe":
+        if event-inventory is not player's inventory:
+            if clicked slot is 46, 48, 50 or 52:
+                cancel event
+                if {clicks::%uuid of player%} is greater than 0:
+                    set slot 36,37,38 and 39 of player's inventory to air
+                    set {clicks::%uuid of player%} to 0
+            
+on inventory click:
+    name of event-inventory contains "&6Wardrobe":
+        if event-inventory is not player's inventory:
+            if clicked slot is 1, 2, 3, 4, 5, 6, 7, 8 or 9:
+                cancel event
+            if clicked slot is 11, 13, 15, 17 or 18:
+                cancel event
+            if clicked slot is 20, 22, 24, 26 or 27:
+                cancel event
+            if clicked slot is 29, 31, 33, 35 or 36:
+                cancel event
+            if clicked slot is 38, 40, 42, 44 or 45:
+                cancel event
+            if clicked slot is 47, 48, 49, 50, 51, 52 or 53:
+                cancel event
+ 
+ 
+on inventory click:
+    name of event-inventory contains "&6Wardrobe":
+        if click type is left mouse button:
+            set {_item} to event-slot
+            if event-itemtype is player head:
+                if event-inventory is not player's inventory:
+                    set {clicks::%uuid of player%} to 1
+    
+                    set slot 39 of player's inventory to {_item}
+                    cancel event
+                
+on inventory click:
+    name of event-inventory contains "&6Wardrobe":
+        if event-inventory is not player's inventory:
+            
+            if clicked slot is 0:
+                send "<url:https://discord.gg/8GTaWeYXe4>&9&kBB&9&9 Discord &9&kBB<reset>" to player
+                cancel event
+                
+on inventory click:
+    name of event-inventory contains "&6Wardrobe":
+        if event-inventory is not player's inventory:
+            
+            if clicked slot is 8:
+                send "&6 <WARDROBE> &C need help on the wardrobe? ask in the discord (/discord) or type /wardhelp if player ""&6PioMine&c"" is online!" to player
+                cancel event
